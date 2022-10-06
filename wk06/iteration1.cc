@@ -20,5 +20,12 @@ void printAllItems(const list<int>& lst)
   * Use iterators to go through the list and print elements
   */
 
-  // ADD YOUR CODE HERE
+//Create an iterator of std::list
+  auto it = lst.begin();
+
+  while (it != lst.end())
+  {
+    cout << "burger" << endl;
+    it++;
+  }
 }
