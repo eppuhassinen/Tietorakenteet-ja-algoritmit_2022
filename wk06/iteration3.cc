@@ -20,5 +20,17 @@ void printHalf(const list<int>& lst)
   * Use iterators to go through the list and print elements
   */
 
-  // ADD YOUR CODE HERE
+  auto it = lst.begin();
+  
+
+  auto endpoint = lst.begin();
+  advance(endpoint, distance(lst.begin(), lst.end())/2);
+
+  while (it != endpoint)
+  {
+    cout << *it << " ";
+
+    
+    it++;
+  }
 }

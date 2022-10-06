@@ -25,7 +25,7 @@ void printAllItems(const list<int>& lst)
 
   while (it != lst.end())
   {
-    cout << "burger" << endl;
+    cout << *it << " ";
     it++;
   }
 }
