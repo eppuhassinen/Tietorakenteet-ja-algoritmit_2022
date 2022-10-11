@@ -18,6 +18,6 @@ using namespace std;
 int findAtLeastGiven(std::map<std::string, int>& m, int given)
 {
     
-    return find_if(m.begin(), m.end(), [given](auto x){return x.second >= given});
+    return find_if(m.begin(), m.end(), [given](auto x){return x.second >= given;});
 }
 
