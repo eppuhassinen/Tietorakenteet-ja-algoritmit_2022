@@ -14,6 +14,6 @@ using namespace std;
  */
 std::vector<int>::iterator findGivenValue(std::vector<int>& v, int given)
 {
-    return findGivenValue(v, given);
+    std::find(v.begin(), v.end(), given);
 }
 
