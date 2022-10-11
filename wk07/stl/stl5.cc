@@ -15,6 +15,12 @@ using namespace std;
  */
 int sortMod3(std::vector<int>& v)
 {
-  return sortMod3(v);
+  vector<int> jee = {};
+  sort(v.begin(), v.begin());
+  for_each(v.begin(), v.end(), [&jee](auto x){if(x%3 == 0){jee.push_back(x);}});
+  for_each(v.begin(), v.end(), [&jee](auto x){if(x%3 == 1){jee.push_back(x);}});
+  for_each(v.begin(), v.end(), [&jee](auto x){if(x%3 == 2){jee.push_back(x);}});
+
+  v = jee;
 }
 
