@@ -19,6 +19,7 @@ int findAtLeastGiven(std::map<std::string, int>& m, int given)
 {
     
     auto jee = find_if(m.begin(), m.end(), [given](auto x){return x.second >= given;});
+    
     if (jee == m.end()){return NOT_FOUND;}
 
     return jee->second;

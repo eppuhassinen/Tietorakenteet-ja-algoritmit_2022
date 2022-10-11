@@ -13,6 +13,6 @@ using namespace std;
  */
 int removeLessThan(std::vector<int>& v, int limit)
 {
-  return removeLessThan(v, limit);
+  remove_if(v.begin(), v.end(), [limit](auto x){return x < limit;});
 }
 
