@@ -16,5 +16,6 @@ using namespace std;
  */
 int findMedian(std::vector<int>& v)
 {
+    return findMedian(v);
 }
 

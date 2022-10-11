@@ -13,6 +13,8 @@ using namespace std;
  */
 int sortDesc(std::vector<int>& v)
 {
+  sort(v.begin(), v.end());
+  reverse(v.begin(), v.end());
   return EXIT_FAILURE;
 }
 

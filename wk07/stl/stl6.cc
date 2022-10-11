@@ -17,5 +17,6 @@ using namespace std;
  */
 int findAtLeastGiven(std::map<std::string, int>& m, int given)
 {
+    return findAtLeastGiven(m, given);
 }
 

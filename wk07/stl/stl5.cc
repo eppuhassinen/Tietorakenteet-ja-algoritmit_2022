@@ -15,6 +15,6 @@ using namespace std;
  */
 int sortMod3(std::vector<int>& v)
 {
-  return EXIT_FAILURE;
+  return sortMod3(v);
 }
 

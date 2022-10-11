@@ -14,5 +14,6 @@ using namespace std;
  */
 std::vector<int>::reverse_iterator findLastEven(std::vector<int>& v)
 {
+    return findLastEven(v);
 }
 
