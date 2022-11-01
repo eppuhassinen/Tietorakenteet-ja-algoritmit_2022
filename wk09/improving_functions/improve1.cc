@@ -10,9 +10,7 @@
  * @return std::vector<int>
  */
 std::vector<int> ascendingVector(int n){
-    std::vector<int> v;
-    for ( int i = 0; i < n ; i++){
-        v.push_back(i);
-    }
+    std::vector<int> v(n-1);
+    std::iota (std::begin(v), std::end(v), 0);
     return v;
 }
