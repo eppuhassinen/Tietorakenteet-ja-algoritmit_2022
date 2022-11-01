@@ -10,7 +10,7 @@
  * @return std::vector<int>
  */
 std::vector<int> ascendingVector(int n){
-    std::vector<int> v(n-1);
+    std::vector<int> v(n);
     std::iota (std::begin(v), std::end(v), 0);
     return v;
 }
