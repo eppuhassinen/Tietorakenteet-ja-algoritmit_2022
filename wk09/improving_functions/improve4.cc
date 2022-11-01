@@ -27,10 +27,9 @@ void randomizedThreePartQuicksort(iter begin, iter end, RNG& rng)
     if (*begin > *(end-1)) { std::reverse(begin, end); }
     
 
-    iter middle1 = std::stable_partition(begin, end,
+    iter middle1 = std::partition(begin, end,
         [pivot](int val){ return val < pivot; });
-    iter middle2 = std::stable_partition(middle1, end,
-        [pivot](int val){ return !(pivot < val); });
+
     randomizedThreePartQuicksort(begin, middle1, rng);
-    randomizedThreePartQuicksort(middle2, end, rng);
+    randomizedThreePartQuicksort(middle1 + 1, end, rng);
 }
