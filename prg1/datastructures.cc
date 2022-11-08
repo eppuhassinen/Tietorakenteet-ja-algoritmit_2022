@@ -31,7 +31,7 @@ Type random_in_range(Type start, Type end)
 Datastructures::Datastructures()
 {
     // Write any initialization you need here
-    station_map = {};
+    station_map_ = {};
 }
 
 Datastructures::~Datastructures()
@@ -42,15 +42,16 @@ Datastructures::~Datastructures()
 unsigned int Datastructures::station_count()
 {
     // Replace the line below with your implementation
-    if ( station_map.empty() ) {return 0;}
+    if ( station_map_.empty() ) {return 0;}
 
-    return station_map.size();
+    return station_map_.size();
 }
 
 void Datastructures::clear_all()
 {
     // Replace the line below with your implementation
-    station_map.clear();
+    station_map_.clear();
+
 }
 
 std::vector<StationID> Datastructures::all_stations()
@@ -58,9 +59,9 @@ std::vector<StationID> Datastructures::all_stations()
     // Replace the line below with your implementation
     std::vector<StationID> all_station_ids = {};
 
-    for ( auto stat : station_map )
+    for ( auto &stat : station_map_ )
     {
-        all_station_ids.push_back(stat.first);
+        all_station_ids.push_back(stat.second.id);
     }
 
     return all_station_ids;
@@ -69,13 +70,14 @@ std::vector<StationID> Datastructures::all_stations()
 bool Datastructures::add_station(StationID id, const Name& name, Coord xy)
 {
     // Replace the line below with your implementation
-    if ( station_map.count(id) != 0 ) { return false; }
+    if ( station_map_.find(id) != station_map_.end() ) { return false; }
 
     station new_station;
+    new_station.id = id;
     new_station.name = name;
     new_station.coord = xy;
 
-    station_map.insert ( std::pair<StationID, station> (id, new_station));
+    station_map_[id] = (new_station);
     return true;
 }
 
@@ -84,43 +86,87 @@ Name Datastructures::get_station_name(StationID id)
     // Replace the line below with your implementation
     // Also uncomment parameters ( /* param */ -> param )
 
-    if ( station_map.count(id) != 0 ) { return NO_NAME; }
+    if ( station_map_.find(id) == station_map_.end() ) { return NO_NAME; }
 
-    return station_map.at(id).name;
+    return station_map_.at(id).name;
 
 }
 
-Coord Datastructures::get_station_coordinates(StationID /*id*/)
+Coord Datastructures::get_station_coordinates(StationID id)
 {
     // Replace the line below with your implementation
     // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("get_station_coordinates()");
+    if ( station_map_.find(id) == station_map_.end() ) { return NO_COORD; }
+
+    return station_map_.at(id).coord;
+
 }
 
 std::vector<StationID> Datastructures::stations_alphabetically()
 {
     // Replace the line below with your implementation
-    throw NotImplemented("stations_alphabetically()");
+    if ( station_map_.empty() ) {return {};}
+    std::vector<StationID> alphabetic = {};
+
+    std::vector<station> stations = {};
+    for (auto &stat : station_map_)
+    {
+        stations.push_back(stat.second);
+    }
+
+
+    sort(stations.begin(), stations.end(), [&](station i, station j) {return i.name < j.name;});
+
+    for (auto &stat : stations)
+    {
+        alphabetic.push_back(stat.id);
+    }
+
+    return alphabetic;
 }
 
 std::vector<StationID> Datastructures::stations_distance_increasing()
 {
     // Replace the line below with your implementation
-    throw NotImplemented("stations_distance_increasing()");
+    if ( station_map_.empty() ) {return {};}
+    std::vector<StationID> distances = {};
+    std::vector<station> stations = {};
+    for (auto &stat : station_map_)
+    {
+        stations.push_back(stat.second);
+    }
+
+
+    sort(stations.begin(), stations.end(), [&](station i, station j) {return i.coord < j.coord;});
+
+    for (auto &stat : stations)
+    {
+        distances.push_back(stat.id);
+    }
+
+    return distances;
 }
 
-StationID Datastructures::find_station_with_coord(Coord /*xy*/)
+StationID Datastructures::find_station_with_coord(Coord xy)
 {
     // Replace the line below with your implementation
     // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("find_station_with_coord()");
+    for (auto &stat : station_map_)
+    {
+        if ( stat.second.coord == xy ) { return stat.first; }
+    }
+
+    return NO_STATION;
 }
 
-bool Datastructures::change_station_coord(StationID /*id*/, Coord /*newcoord*/)
+bool Datastructures::change_station_coord(StationID id, Coord newcoord)
 {
     // Replace the line below with your implementation
     // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("change_station_coord()");
+    if ( station_map_.find(id) == station_map_.end() ) {return false;}
+
+    station_map_[id].coord = newcoord;
+    return true;
 }
 
 bool Datastructures::add_departure(StationID /*stationid*/, TrainID /*trainid*/, Time /*time*/)

@@ -15,6 +15,8 @@
 #include <functional>
 #include <exception>
 #include <map>
+#include <algorithm>
+#include <math.h>
 
 
 // Types for IDs
@@ -47,6 +49,7 @@ struct Coord
 inline bool operator==(Coord c1, Coord c2) { return c1.x == c2.x && c1.y == c2.y; }
 inline bool operator!=(Coord c1, Coord c2) { return !(c1==c2); } // Not strictly necessary
 
+
 struct CoordHash
 {
     std::size_t operator()(Coord xy) const
@@ -61,17 +64,25 @@ struct CoordHash
 
 struct station
 {
+    StationID id;
     Name name;
     Coord coord;
+
 };
 
 // Example: Defining < for Coord so that it can be used
 // as key for std::map/set
-inline bool operator<(Coord c1, Coord c2)
+/*inline bool operator<(Coord c1, Coord c2)
 {
     if (c1.y < c2.y) { return true; }
     else if (c2.y < c1.y) { return false; }
     else { return c1.x < c2.x; }
+}*/
+inline bool operator<(Coord c1, Coord c2)
+{
+    float d1 = std::sqrt(pow(c1.x,2) + pow(c1.y,2));
+    float d2 = std::sqrt(pow(c2.x,2) + pow(c2.y,2));
+    return d1 < d2 or (d1 == d2 and c1.y < c2.y);
 }
 
 // Return value for cases where coordinates were not found
@@ -120,15 +131,15 @@ public:
     // Short rationale for estimate:
     std::vector<StationID> all_stations();
 
-    // Estimate of performance:
+    // Estimate of performance: log(n)
     // Short rationale for estimate:
     bool add_station(StationID id, Name const& name, Coord xy);
 
-    // Estimate of performance:
+    // Estimate of performance: log(n)
     // Short rationale for estimate:
     Name get_station_name(StationID id);
 
-    // Estimate of performance:
+    // Estimate of performance: log(n)
     // Short rationale for estimate:
     Coord get_station_coordinates(StationID id);
 
@@ -213,7 +224,10 @@ public:
 private:
     // Add stuff needed for your class implementation here
 
-    std::map<StationID,station> station_map;
+    std::map<StationID,station> station_map_;
+
+
+
 
 };
 
