@@ -1,8 +1,8 @@
 // Datastructures.hh
 //
-// Student name:
-// Student email:
-// Student number:
+// Student name: Eppu Hassinen
+// Student email: eppu.hassinen@tuni.fi
+// Student number: 50044786
 
 #ifndef DATASTRUCTURES_HH
 #define DATASTRUCTURES_HH
@@ -14,6 +14,8 @@
 #include <limits>
 #include <functional>
 #include <exception>
+#include <map>
+
 
 // Types for IDs
 using StationID = std::string;
@@ -55,6 +57,12 @@ struct CoordHash
         // Combine hash values (magic!)
         return xhash ^ (yhash + 0x9e3779b9 + (xhash << 6) + (xhash >> 2));
     }
+};
+
+struct station
+{
+    Name name;
+    Coord coord;
 };
 
 // Example: Defining < for Coord so that it can be used
@@ -204,6 +212,8 @@ public:
 
 private:
     // Add stuff needed for your class implementation here
+
+    std::map<StationID,station> station_map;
 
 };
 

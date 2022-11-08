@@ -1,8 +1,8 @@
 // Datastructures.cc
 //
-// Student name:
-// Student email:
-// Student number:
+// Student name: Eppu Hassinen
+// Student email: eppu.hassinen@tuni.fi
+// Student number: 50044786
 
 #include "datastructures.hh"
 
@@ -31,6 +31,7 @@ Type random_in_range(Type start, Type end)
 Datastructures::Datastructures()
 {
     // Write any initialization you need here
+    station_map = {};
 }
 
 Datastructures::~Datastructures()
@@ -41,33 +42,52 @@ Datastructures::~Datastructures()
 unsigned int Datastructures::station_count()
 {
     // Replace the line below with your implementation
-    throw NotImplemented("station_count()");
+    if ( station_map.empty() ) {return 0;}
+
+    return station_map.size();
 }
 
 void Datastructures::clear_all()
 {
     // Replace the line below with your implementation
-    throw NotImplemented("clear_all()");
+    station_map.clear();
 }
 
 std::vector<StationID> Datastructures::all_stations()
 {
     // Replace the line below with your implementation
-    throw NotImplemented("all_stations()");
+    std::vector<StationID> all_station_ids = {};
+
+    for ( auto stat : station_map )
+    {
+        all_station_ids.push_back(stat.first);
+    }
+
+    return all_station_ids;
 }
 
-bool Datastructures::add_station(StationID /*id*/, const Name& /*name*/, Coord /*xy*/)
+bool Datastructures::add_station(StationID id, const Name& name, Coord xy)
+{
+    // Replace the line below with your implementation
+    if ( station_map.count(id) != 0 ) { return false; }
+
+    station new_station;
+    new_station.name = name;
+    new_station.coord = xy;
+
+    station_map.insert ( std::pair<StationID, station> (id, new_station));
+    return true;
+}
+
+Name Datastructures::get_station_name(StationID id)
 {
     // Replace the line below with your implementation
     // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("add_station()");
-}
 
-Name Datastructures::get_station_name(StationID /*id*/)
-{
-    // Replace the line below with your implementation
-    // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("get_station_name()");
+    if ( station_map.count(id) != 0 ) { return NO_NAME; }
+
+    return station_map.at(id).name;
+
 }
 
 Coord Datastructures::get_station_coordinates(StationID /*id*/)
