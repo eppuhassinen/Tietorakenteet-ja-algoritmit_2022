@@ -15,6 +15,7 @@
 #include <functional>
 #include <exception>
 #include <map>
+#include <set>
 #include <algorithm>
 #include <math.h>
 
@@ -48,6 +49,12 @@ struct Coord
 // as key for std::unordered_map/set, if needed
 inline bool operator==(Coord c1, Coord c2) { return c1.x == c2.x && c1.y == c2.y; }
 inline bool operator!=(Coord c1, Coord c2) { return !(c1==c2); } // Not strictly necessary
+inline bool operator<(Coord c1, Coord c2)
+{
+    float d1 = std::sqrt(pow(c1.x,2) + pow(c1.y,2));
+    float d2 = std::sqrt(pow(c2.x,2) + pow(c2.y,2));
+    return d1 < d2 or (d1 == d2 and c1.y < c2.y);
+}
 
 
 struct CoordHash
@@ -67,23 +74,23 @@ struct station
     StationID id;
     Name name;
     Coord coord;
+    std::map<TrainID,Time> trains;
+    RegionID parent = NO_REGION;
 
 };
 
-// Example: Defining < for Coord so that it can be used
-// as key for std::map/set
-/*inline bool operator<(Coord c1, Coord c2)
+struct region
 {
-    if (c1.y < c2.y) { return true; }
-    else if (c2.y < c1.y) { return false; }
-    else { return c1.x < c2.x; }
-}*/
-inline bool operator<(Coord c1, Coord c2)
-{
-    float d1 = std::sqrt(pow(c1.x,2) + pow(c1.y,2));
-    float d2 = std::sqrt(pow(c2.x,2) + pow(c2.y,2));
-    return d1 < d2 or (d1 == d2 and c1.y < c2.y);
-}
+    RegionID id;
+    Name name = "";
+    region* parent = nullptr;
+    std::set<region*> subregions = {};
+    std::set<station*> stations = {};
+    std::vector<Coord> coords = {};
+
+};
+
+
 
 // Return value for cases where coordinates were not found
 Coord const NO_COORD = {NO_VALUE, NO_VALUE};
@@ -226,8 +233,9 @@ private:
 
     std::map<StationID,station> station_map_;
 
+    std::map<RegionID, region> region_map_;
 
-
+    void rec_subregions_of_region(std::vector<RegionID> &subregions,region* current_region);
 
 };
 
