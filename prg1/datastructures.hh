@@ -126,16 +126,18 @@ public:
     Datastructures();
     ~Datastructures();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(1)
+    // Short rationale for estimate: map.empty and map.size are constant operations
     unsigned int station_count();
 
     // Estimate of performance: O(n)
-    // Short rationale for estimate: map.clear is linear
+    // Short rationale for estimate: map.clear is linear and the function doesn't do
+    // anything else
     void clear_all();
 
     // Estimate of performance: O(n)
-    // Short rationale for estimate: function inserts n times to vector
+    // Short rationale for estimate: function inserts n times to vector and
+    // inserting to a vector is constant
     std::vector<StationID> all_stations();
 
     // Estimate of performance: O(log(n))
@@ -145,10 +147,12 @@ public:
 
     // Estimate of performance: O(log(n))
     // Short rationale for estimate: find and accessing are O(log(n))
+    // and the function does that
     Name get_station_name(StationID id);
 
     // Estimate of performance: O(log(n))
     // Short rationale for estimate: find and accessing are O(log(n))
+    // and the function does that
     Coord get_station_coordinates(StationID id);
 
     // We recommend you implement the operations below only after implementing the ones above
@@ -170,65 +174,75 @@ public:
 
     // Estimate of performance: O(log(n))
     // Short rationale for estimate: finding and inserting value in map are
-    // log(n)
+    // asymptotic efficiency is log(n)
     bool change_station_coord(StationID id, Coord newcoord);
 
     // Estimate of performance: O(log(n))
-    // Short rationale for estimate: 3 log(n) = log(N)
+    // Short rationale for estimate: 3 log(n) = log(N) and the asymptotic efficiency is just that
     bool add_departure(StationID stationid, TrainID trainid, Time time);
 
     // Estimate of performance: O(log(n))
-    // Short rationale for estimate: all operations are O(log(n))
+    // Short rationale for estimate: all operations are O(log(n)) so the overall
+    // efficiency is O(log(n))
     bool remove_departure(StationID stationid, TrainID trainid, Time time);
 
     // Estimate of performance: O(n log(n))
-    // Short rationale for estimate: function is kind of bad
+    // Short rationale for estimate: function is kind of bad but works
+    // The efficiency is my biggest consern.
     std::vector<std::pair<Time, TrainID>> station_departures_after(StationID stationid, Time time);
 
     // We recommend you implement the operations below only after implementing the ones above
 
     // Estimate of performance: O(log(n))
-    // Short rationale for estimate: same as add station
+    // Short rationale for estimate: find and insert in map are O(log(n))
+    // O(2log(n)) = O(log(n))
     bool add_region(RegionID id, Name const& name, std::vector<Coord> coords);
 
     // Estimate of performance: O(n)
-    // Short rationale for estimate: loops through all elements
+    // Short rationale for estimate: loops through all elements and the
+    // efficiency of the function is O(n)
     std::vector<RegionID> all_regions();
 
     // Estimate of performance: O(log (n))
     // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is the same
     Name get_region_name(RegionID id);
 
     // Estimate of performance: O(log(n))
     // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is the same
     std::vector<Coord> get_region_coords(RegionID id);
 
     // Estimate of performance: O(log(n))
     // Short rationale for estimate: finding and insertion are O(log(n))
+    // so the overall efficiency is O(log(n))
     bool add_subregion_to_region(RegionID id, RegionID parentid);
 
     // Estimate of performance: O(log(n))
     // Short rationale for estimate: finding and insertion are O(log(n))
+    // so the overall efficiency is O(log(n))
     bool add_station_to_region(StationID id, RegionID parentid);
 
     // Estimate of performance: O(n log(n))
     // Short rationale for estimate: worst case is if all regions
-    // are subregions to eachother
+    // are subregions to eachother. In most cases it is faster
     std::vector<RegionID> station_in_regions(StationID id);
 
     // Non-compulsory operations
 
     // Estimate of performance: O(log(n) + n)
     // Short rationale for estimate: finding is O(log(n)) and
-    // insertion is O(n)
+    // insertion is O(n) so the overall efficiency is O(log(n) + n)
     std::vector<RegionID> all_subregions_of_region(RegionID id);
 
     // Estimate of performance: O(n log(n))
-    // Short rationale for estimate: sorting is O(n log(n))
+    // Short rationale for estimate: sorting is O(n log(n)) and the other
+    // operations are constant
     std::vector<StationID> stations_closest_to(Coord xy);
 
     // Estimate of performance: O(log(n))
-    // Short rationale for estimate: finding and erasing from map are O(log(n))
+    // Short rationale for estimate: finding and erasing from a map are O(log(n))
+    // so the overall efficiency is O(log(n))
     bool remove_station(StationID id);
 
     // Estimate of performance: O(n log(n))
