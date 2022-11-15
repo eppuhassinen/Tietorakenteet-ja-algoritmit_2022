@@ -29,7 +29,8 @@ Type random_in_range(Type start, Type end)
 // warning about unused parameters on operations you haven't yet implemented.)
 
 /**
- * @brief Datastructures::Datastructures
+ * @brief Datastructures::Datastructures Istuskelen aamukahveella
+ * Ei kuppi meinaa pysyä kourassa
  */
 Datastructures::Datastructures()
 {
@@ -39,6 +40,8 @@ Datastructures::Datastructures()
 
 /**
  * @brief Datastructures::~Datastructures
+ * Päässä jyskii kanuunat
+ * Kuin joskus itärintamalla
  */
 Datastructures::~Datastructures()
 {
@@ -46,8 +49,9 @@ Datastructures::~Datastructures()
 }
 
 /**
- * @brief Datastructures::station_count
- * @return
+ * @brief Datastructures::station_count Joku hyyskässä nyyhkii
+ * Se on Aimo
+ * @return Se peremmälle pirttiin vetelehtii
  */
 unsigned int Datastructures::station_count()
 {
@@ -58,7 +62,8 @@ unsigned int Datastructures::station_count()
 }
 
 /**
- * \brief Datastructures::clear_all
+ * \brief Datastructures::clear_all Ja haisee kuin rankkitynnyri
+ * Samalta haiskahdan minäkin
  */
 void Datastructures::clear_all()
 {
@@ -68,8 +73,10 @@ void Datastructures::clear_all()
 }
 
 /**
- * @brief Datastructures::all_stations
- * @return
+ * @brief Datastructures::all_stations Yhdessähän pohjia kiskottiin
+ * Taksin maksoi Aimo
+ * @return Hirsipuu kutsuu
+ * Pirkka-kraka hamppuköytehen vaihtuu
  */
 std::vector<StationID> Datastructures::all_stations()
 {
@@ -85,11 +92,11 @@ std::vector<StationID> Datastructures::all_stations()
 }
 
 /**
- * @brief Datastructures::add_station
- * @param id
- * @param name
- * @param xy
- * @return
+ * @brief Datastructures::add_station Jo loppuu vihdoinkin tämä kidutus
+ * @param id Humppakauhut unohtuu
+ * @param name Risun lailla niskanikamani taittuu
+ * @param xy Joo, pihalle pystyyn vaan kunnon hirsipuu
+ * @return Lai LaiLaiLaiLaiLai Lai LaiLaiLai Lai
  */
 bool Datastructures::add_station(StationID id, const Name& name, Coord xy)
 {
@@ -107,9 +114,10 @@ bool Datastructures::add_station(StationID id, const Name& name, Coord xy)
 }
 
 /**
- * @brief Datastructures::get_station_name
- * @param id
- * @return
+ * @brief Datastructures::get_station_name Mielikuvat eilisestä hatarat
+ * Humppakukot hurmasivat humppakanat
+ * @param id Vaan kanalaan päässyt ei kumpikaan
+ * @return Keskenään kukot jäivät kiekumaan
  */
 Name Datastructures::get_station_name(StationID id)
 {
@@ -123,9 +131,11 @@ Name Datastructures::get_station_name(StationID id)
 }
 
 /**
- * @brief Datastructures::get_station_coordinates
- * @param id
- * @return
+ * @brief Datastructures::get_station_coordinates Siipi maassa on Aimo
+ * Järki seisoo
+ * @param id Ja muu ei seisokkaan
+ * Järki Seisoo
+ * @return Palava siili ruokatorvessa
  */
 Coord Datastructures::get_station_coordinates(StationID id)
 {
@@ -138,8 +148,9 @@ Coord Datastructures::get_station_coordinates(StationID id)
 }
 
 /**
- * @brief Datastructures::stations_alphabetically
- * @return
+ * @brief Datastructures::stations_alphabetically Aamukahviin heräystä lorautan
+ * Aimo vähän epäröi vaan tekee saman
+ * @return Ja kohta tilaa taksin Aimo
  */
 std::vector<StationID> Datastructures::stations_alphabetically()
 {
@@ -165,8 +176,9 @@ std::vector<StationID> Datastructures::stations_alphabetically()
 }
 
 /**
- * @brief Datastructures::stations_distance_increasing
- * @return
+ * @brief Datastructures::stations_distance_increasing Hirsipuu kutsuu
+ * Pirkka-kraka hamppuköytehen vaihtuu
+ * @return Jo loppuu vihdoinkin tämä kidutus
  */
 std::vector<StationID> Datastructures::stations_distance_increasing()
 {
@@ -191,9 +203,11 @@ std::vector<StationID> Datastructures::stations_distance_increasing()
 }
 
 /**
- * @brief Datastructures::find_station_with_coord
- * @param xy
- * @return
+ * @brief Datastructures::find_station_with_coord Humppa kauhut unohtuu
+ * Risun lailla niskanikamani taittuu
+ * @param xy Joo, pihalle pystyyn vaan kunnon hirsipuu
+ * @return Hirsipuu kutsuu
+ * Pirkka-kraka hamppuköytehen vaihtuu
  */
 StationID Datastructures::find_station_with_coord(Coord xy)
 {
@@ -208,10 +222,12 @@ StationID Datastructures::find_station_with_coord(Coord xy)
 }
 
 /**
- * @brief Datastructures::change_station_coord
- * @param id
- * @param newcoord
- * @return
+ * @brief Datastructures::change_station_coord Jo loppuu vihdoinkin tämä kidutus
+ * Humppa kauhut unohtuu
+ * @param id Risun lailla niskanikamani taittuu
+ * @param newcoord Joo, pihalle pystyyn vaan
+ * Joo, pihalle pystyyn vaan
+ * @return Joo, pihalle pystyyn vaan laittakaa se hirsipuu
  */
 bool Datastructures::change_station_coord(StationID id, Coord newcoord)
 {
@@ -224,11 +240,11 @@ bool Datastructures::change_station_coord(StationID id, Coord newcoord)
 }
 
 /**
- * @brief Datastructures::add_departure
- * @param stationid
- * @param trainid
- * @param time
- * @return
+ * @brief Datastructures::add_departure Kaverit nauraa kun mullei oo heilaa
+ * @param stationid Heittelen tikkaa ja kaatelen keilaa
+ * @param trainid Sopivaa etsin vaan kaikki mut teilaa
+ * @param time Ruma ja yksin kuin lotja ma seilaan
+ * @return Perjantai-iltaisin ma tekarit harjaan
  */
 bool Datastructures::add_departure(StationID stationid, TrainID trainid, Time time)
 {
@@ -248,11 +264,11 @@ bool Datastructures::add_departure(StationID stationid, TrainID trainid, Time ti
 }
 
 /**
- * @brief Datastructures::remove_departure
- * @param stationid
- * @param trainid
- * @param time
- * @return
+ * @brief Datastructures::remove_departure Jakauksen liisteröin syljellä otsaan
+ * @param stationid Jospa ma tanaan sen oikean löydän
+ * @param trainid Tai kenet tahansa, edes sen väärän
+ * @param time Kanssansa humppaisin, nousuun auringon
+ * @return Aamulla mentäisiin, baariin Elannon
  */
 bool Datastructures::remove_departure(StationID stationid, TrainID trainid, Time time)
 {
@@ -274,10 +290,10 @@ bool Datastructures::remove_departure(StationID stationid, TrainID trainid, Time
 }
 
 /**
- * @brief Datastructures::station_departures_after
- * @param stationid
- * @param time
- * @return
+ * @brief Datastructures::station_departures_after Että mua riipoo kun toiset vaan tanssaa
+ * @param stationid Kuin hevosta Henry, ne paria vaihtaa
+ * @param time Jospa ma tänään, sen oikean nappaan
+ * @return En periksi anna, tuumin ja pokkaan
  */
 std::vector<std::pair<Time, TrainID>> Datastructures::station_departures_after(StationID stationid, Time time)
 {
@@ -307,11 +323,11 @@ std::vector<std::pair<Time, TrainID>> Datastructures::station_departures_after(S
 }
 
 /**
- * @brief Datastructures::add_region
- * @param id
- * @param name
- * @param coords
- * @return
+ * @brief Datastructures::add_region Joku elää humpalla, ma elan sen alla
+ * @param id Se talvella hyytää jo menomatkalla
+ * @param name Se minua kutsuu, ja minähän vastaan
+ * @param coords Ruma ja yksin, ja heilaa vailla
+ * @return Kanssansa humppaisin, nousuun auringon
  */
 bool Datastructures::add_region(RegionID id, const Name &name, std::vector<Coord> coords)
 {
@@ -329,8 +345,8 @@ bool Datastructures::add_region(RegionID id, const Name &name, std::vector<Coord
 }
 
 /**
- * @brief Datastructures::all_regions
- * @return
+ * @brief Datastructures::all_regions Aamulla mentäisiin, baariin Elannon
+ * @return Kahvit juotaisiin, kera pullan eilisen
  */
 std::vector<RegionID> Datastructures::all_regions()
 {
@@ -344,9 +360,9 @@ std::vector<RegionID> Datastructures::all_regions()
 }
 
 /**
- * @brief Datastructures::get_region_name
- * @param id
- * @return
+ * @brief Datastructures::get_region_name Puolella hinnalla, saa kun tinkaisee
+ * @param id Kanssansa humppaisin, nousuun auringon
+ * @return Aamulla mentäisiin, baariin Elannon
  */
 Name Datastructures::get_region_name(RegionID id)
 {
@@ -359,9 +375,9 @@ Name Datastructures::get_region_name(RegionID id)
 }
 
 /**
- * @brief Datastructures::get_region_coords
- * @param id
- * @return
+ * @brief Datastructures::get_region_coords Kahvit juotaisiin, kera pullan eilisen
+ * @param id Puolella hinnalla, saa kun tinkaisee
+ * @return Söin liivistä hihat kun hautasi näin
  */
 std::vector<Coord> Datastructures::get_region_coords(RegionID id)
 {
@@ -374,10 +390,10 @@ std::vector<Coord> Datastructures::get_region_coords(RegionID id)
 }
 
 /**
- * @brief Datastructures::add_subregion_to_region
- * @param id
- * @param parentid
- * @return
+ * @brief Datastructures::add_subregion_to_region Mä nostatin vihat ja tansseihin jäin
+ * @param id Oon tanssaava kersantti vain
+ * @param parentid Kai humpata saan, humpata saan
+ * @return Ei kylmyytes estää voi humppaustain
  */
 bool Datastructures::add_subregion_to_region(RegionID id, RegionID parentid)
 {
@@ -397,10 +413,10 @@ bool Datastructures::add_subregion_to_region(RegionID id, RegionID parentid)
 }
 
 /**
- * @brief Datastructures::add_station_to_region
- * @param id
- * @param parentid
- * @return
+ * @brief Datastructures::add_station_to_region Hautaan asti humppaan
+ * @param id Söin kengistä pohjat kun arkkusi näin
+ * @param parentid Mä tempasin pohjat ja tansseihin jäin
+ * @return On humppaava suntio vain
  */
 bool Datastructures::add_station_to_region(StationID id, RegionID parentid)
 {
@@ -420,9 +436,9 @@ bool Datastructures::add_station_to_region(StationID id, RegionID parentid)
 }
 
 /**
- * @brief Datastructures::station_in_regions
- * @param id
- * @return
+ * @brief Datastructures::station_in_regions On humppaava suntio vain
+ * @param id Mun seuranain, seuranain
+ * @return Kai suntio kestää voi humppaustain
  */
 std::vector<RegionID> Datastructures::station_in_regions(StationID id)
 {
@@ -452,9 +468,9 @@ std::vector<RegionID> Datastructures::station_in_regions(StationID id)
 }
 
 /**
- * @brief Datastructures::all_subregions_of_region
- * @param id
- * @return
+ * @brief Datastructures::all_subregions_of_region Hautaan asti humppaan
+ * @param id Päälaulanta petteri terävä
+ * @return Niin kauan kun ma muistan on ollut humppaa
  */
 std::vector<RegionID> Datastructures::all_subregions_of_region(RegionID id)
 {
@@ -471,9 +487,9 @@ std::vector<RegionID> Datastructures::all_subregions_of_region(RegionID id)
 }
 
 /**
- * @brief Datastructures::stations_closest_to
- * @param xy
- * @return
+ * @brief Datastructures::stations_closest_to sen villit rytmit raikui jo nuijasodassa
+ * @param xy sitä oli paljon ja se oli mahtavaa
+ * @return mä vain tuumaan yksin tuumaan
  */
 std::vector<StationID> Datastructures::stations_closest_to(Coord xy)
 {
@@ -504,9 +520,9 @@ std::vector<StationID> Datastructures::stations_closest_to(Coord xy)
 }
 
 /**
- * @brief Datastructures::remove_station
- * @param id
- * @return
+ * @brief Datastructures::remove_station kuka humpan seisauttaa? Nyt pitkätukat veivaa
+ * @param id Nyt pitkätukat veivaa jotain kevytmetallia
+ * @return ja diskoissa ne soittaa pelkkää puheohjelmaa
  */
 bool Datastructures::remove_station(StationID id)
 {
@@ -528,10 +544,10 @@ bool Datastructures::remove_station(StationID id)
 }
 
 /**
- * @brief Datastructures::common_parent_of_regions
- * @param id1
- * @param id2
- * @return
+ * @brief Datastructures::common_parent_of_regions ja tukattomat tivaa meiltä sotamuistoja
+ * @param id1 meiltä sotamuistoja mä vain tuumaan
+ * @param id2 yksin tuumaan kuka humpan seisauttaa?
+ * @return Alakerran vihtahousu raapii partaansa
  */
 RegionID Datastructures::common_parent_of_regions(RegionID id1, RegionID id2)
 {
@@ -562,9 +578,9 @@ RegionID Datastructures::common_parent_of_regions(RegionID id1, RegionID id2)
 
 }
 /**
- * @brief Datastructures::rec_subregions_of_region
- * @param subregions
- * @param current_region
+ * @brief Datastructures::rec_subregions_of_region Alakerran vihtahousu raapii partaansa
+ * @param subregions yläkerran maitoparta meinaa tehdä housuunsa
+ * @param current_region kun HUMPPA TULEE LUJAA JA PÄÄHÄN KUMAUTTAA
  */
 void Datastructures::rec_subregions_of_region(std::vector<RegionID> &subregions, region *current_region)
 {
