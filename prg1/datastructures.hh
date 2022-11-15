@@ -130,102 +130,109 @@ public:
     // Short rationale for estimate:
     unsigned int station_count();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n)
+    // Short rationale for estimate: map.clear is linear
     void clear_all();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n)
+    // Short rationale for estimate: function inserts n times to vector
     std::vector<StationID> all_stations();
 
-    // Estimate of performance: log(n)
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: find and insert in map are O(log(n))
+    // O(2log(n)) = O(log(n))
     bool add_station(StationID id, Name const& name, Coord xy);
 
-    // Estimate of performance: log(n)
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: find and accessing are O(log(n))
     Name get_station_name(StationID id);
 
-    // Estimate of performance: log(n)
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: find and accessing are O(log(n))
     Coord get_station_coordinates(StationID id);
 
     // We recommend you implement the operations below only after implementing the ones above
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: sorting is O(n log(n))
+    // and O(3n log(n)) = O(n log(n))
     std::vector<StationID> stations_alphabetically();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: sorting is O(n log(n))
+    // and O(3n log(n)) = O(n log(n))
     std::vector<StationID> stations_distance_increasing();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n)
+    // Short rationale for estimate: loops through all stations and
+    // returns before if coordinate is found
     StationID find_station_with_coord(Coord xy);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding and inserting value in map are
+    // log(n)
     bool change_station_coord(StationID id, Coord newcoord);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: 3 log(n) = log(N)
     bool add_departure(StationID stationid, TrainID trainid, Time time);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: all operations are O(log(n))
     bool remove_departure(StationID stationid, TrainID trainid, Time time);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: function is kind of bad
     std::vector<std::pair<Time, TrainID>> station_departures_after(StationID stationid, Time time);
 
     // We recommend you implement the operations below only after implementing the ones above
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: same as add station
     bool add_region(RegionID id, Name const& name, std::vector<Coord> coords);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n)
+    // Short rationale for estimate: loops through all elements
     std::vector<RegionID> all_regions();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log (n))
+    // Short rationale for estimate: finding in a map is O(log(n))
     Name get_region_name(RegionID id);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding in a map is O(log(n))
     std::vector<Coord> get_region_coords(RegionID id);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding and insertion are O(log(n))
     bool add_subregion_to_region(RegionID id, RegionID parentid);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding and insertion are O(log(n))
     bool add_station_to_region(StationID id, RegionID parentid);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: worst case is if all regions
+    // are subregions to eachother
     std::vector<RegionID> station_in_regions(StationID id);
 
     // Non-compulsory operations
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n) + n)
+    // Short rationale for estimate: finding is O(log(n)) and
+    // insertion is O(n)
     std::vector<RegionID> all_subregions_of_region(RegionID id);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: sorting is O(n log(n))
     std::vector<StationID> stations_closest_to(Coord xy);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding and erasing from map are O(log(n))
     bool remove_station(StationID id);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: finding is O(log(n)) and looping through is O(n)
     RegionID common_parent_of_regions(RegionID id1, RegionID id2);
 
 private:
