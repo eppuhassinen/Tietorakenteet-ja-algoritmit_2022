@@ -399,11 +399,33 @@ bool Datastructures::remove_station(StationID id)
 
 }
 
-RegionID Datastructures::common_parent_of_regions(RegionID /*id1*/, RegionID /*id2*/)
+RegionID Datastructures::common_parent_of_regions(RegionID id1, RegionID id2)
 {
     // Replace the line below with your implementation
     // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("common_parent_of_regions()");
+    if (region_map_.find(id1) == region_map_.end() or
+            region_map_.find(id2) == region_map_.end()) {return NO_REGION;}
+
+    std::vector<RegionID> id1_parents = {region_map_[id1].id};
+    auto current_parent = region_map_[id1].parent;
+    while (current_parent != nullptr)
+    {
+        id1_parents.push_back(current_parent->id);
+        current_parent = current_parent->parent;
+    }
+
+    if (std::find(id1_parents.begin(), id1_parents.end(), id2) != id1_parents.end()) {return id2;}
+
+    current_parent = region_map_[id2].parent;
+    while (current_parent != nullptr)
+    {
+        if (std::find(id1_parents.begin(), id1_parents.end(), current_parent->id) != id1_parents.end()) {return current_parent->id;}
+        current_parent = current_parent->parent;
+    }
+
+    return NO_REGION;
+
+
 }
 
 void Datastructures::rec_subregions_of_region(std::vector<RegionID> &subregions, region *current_region)
