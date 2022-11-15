@@ -230,7 +230,7 @@ public:
 
     // Non-compulsory operations
 
-    // Estimate of performance: O(log(n) + n)
+    // Estimate of performance: O(n log(n))
     // Short rationale for estimate: finding is O(log(n)) and
     // insertion is O(n) so the overall efficiency is O(log(n) + n)
     std::vector<RegionID> all_subregions_of_region(RegionID id);
