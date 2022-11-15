@@ -321,7 +321,7 @@ std::vector<RegionID> Datastructures::station_in_regions(StationID id)
     if (it == station_map_.end()) {return {NO_REGION};}
     std::vector<RegionID> region_vector = {};
 
-    if (station_map_[id].parent == NO_REGION) {return {NO_REGION};}
+    if (station_map_[id].parent == NO_REGION) {return {};}
 
     auto currentit = region_map_.find(it->second.parent);
 
