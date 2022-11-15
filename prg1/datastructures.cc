@@ -28,17 +28,27 @@ Type random_in_range(Type start, Type end)
 // an operation (Commenting out parameter name prevents compiler from
 // warning about unused parameters on operations you haven't yet implemented.)
 
+/**
+ * @brief Datastructures::Datastructures
+ */
 Datastructures::Datastructures()
 {
     // Write any initialization you need here
     station_map_ = {};
 }
 
+/**
+ * @brief Datastructures::~Datastructures
+ */
 Datastructures::~Datastructures()
 {
     // Write any cleanup you need here
 }
 
+/**
+ * @brief Datastructures::station_count
+ * @return
+ */
 unsigned int Datastructures::station_count()
 {
     // Replace the line below with your implementation
@@ -47,6 +57,9 @@ unsigned int Datastructures::station_count()
     return station_map_.size();
 }
 
+/**
+ * \brief Datastructures::clear_all
+ */
 void Datastructures::clear_all()
 {
     // Replace the line below with your implementation
@@ -54,6 +67,10 @@ void Datastructures::clear_all()
 
 }
 
+/**
+ * @brief Datastructures::all_stations
+ * @return
+ */
 std::vector<StationID> Datastructures::all_stations()
 {
     // Replace the line below with your implementation
@@ -67,6 +84,13 @@ std::vector<StationID> Datastructures::all_stations()
     return all_station_ids;
 }
 
+/**
+ * @brief Datastructures::add_station
+ * @param id
+ * @param name
+ * @param xy
+ * @return
+ */
 bool Datastructures::add_station(StationID id, const Name& name, Coord xy)
 {
     // Replace the line below with your implementation
@@ -82,6 +106,11 @@ bool Datastructures::add_station(StationID id, const Name& name, Coord xy)
     return true;
 }
 
+/**
+ * @brief Datastructures::get_station_name
+ * @param id
+ * @return
+ */
 Name Datastructures::get_station_name(StationID id)
 {
     // Replace the line below with your implementation
@@ -93,6 +122,11 @@ Name Datastructures::get_station_name(StationID id)
 
 }
 
+/**
+ * @brief Datastructures::get_station_coordinates
+ * @param id
+ * @return
+ */
 Coord Datastructures::get_station_coordinates(StationID id)
 {
     // Replace the line below with your implementation
@@ -103,6 +137,10 @@ Coord Datastructures::get_station_coordinates(StationID id)
 
 }
 
+/**
+ * @brief Datastructures::stations_alphabetically
+ * @return
+ */
 std::vector<StationID> Datastructures::stations_alphabetically()
 {
     // Replace the line below with your implementation
@@ -126,6 +164,10 @@ std::vector<StationID> Datastructures::stations_alphabetically()
     return alphabetic;
 }
 
+/**
+ * @brief Datastructures::stations_distance_increasing
+ * @return
+ */
 std::vector<StationID> Datastructures::stations_distance_increasing()
 {
     // Replace the line below with your implementation
@@ -148,6 +190,11 @@ std::vector<StationID> Datastructures::stations_distance_increasing()
     return distances;
 }
 
+/**
+ * @brief Datastructures::find_station_with_coord
+ * @param xy
+ * @return
+ */
 StationID Datastructures::find_station_with_coord(Coord xy)
 {
     // Replace the line below with your implementation
@@ -160,6 +207,12 @@ StationID Datastructures::find_station_with_coord(Coord xy)
     return NO_STATION;
 }
 
+/**
+ * @brief Datastructures::change_station_coord
+ * @param id
+ * @param newcoord
+ * @return
+ */
 bool Datastructures::change_station_coord(StationID id, Coord newcoord)
 {
     // Replace the line below with your implementation
@@ -170,6 +223,13 @@ bool Datastructures::change_station_coord(StationID id, Coord newcoord)
     return true;
 }
 
+/**
+ * @brief Datastructures::add_departure
+ * @param stationid
+ * @param trainid
+ * @param time
+ * @return
+ */
 bool Datastructures::add_departure(StationID stationid, TrainID trainid, Time time)
 {
     // Replace the line below with your implementation
@@ -187,6 +247,13 @@ bool Datastructures::add_departure(StationID stationid, TrainID trainid, Time ti
     return true;
 }
 
+/**
+ * @brief Datastructures::remove_departure
+ * @param stationid
+ * @param trainid
+ * @param time
+ * @return
+ */
 bool Datastructures::remove_departure(StationID stationid, TrainID trainid, Time time)
 {
     // Replace the line below with your implementation
@@ -206,6 +273,12 @@ bool Datastructures::remove_departure(StationID stationid, TrainID trainid, Time
 
 }
 
+/**
+ * @brief Datastructures::station_departures_after
+ * @param stationid
+ * @param time
+ * @return
+ */
 std::vector<std::pair<Time, TrainID>> Datastructures::station_departures_after(StationID stationid, Time time)
 {
     // Replace the line below with your implementation
@@ -233,6 +306,13 @@ std::vector<std::pair<Time, TrainID>> Datastructures::station_departures_after(S
     return train_vector;
 }
 
+/**
+ * @brief Datastructures::add_region
+ * @param id
+ * @param name
+ * @param coords
+ * @return
+ */
 bool Datastructures::add_region(RegionID id, const Name &name, std::vector<Coord> coords)
 {
     // Replace the line below with your implementation
@@ -248,6 +328,10 @@ bool Datastructures::add_region(RegionID id, const Name &name, std::vector<Coord
     return true;
 }
 
+/**
+ * @brief Datastructures::all_regions
+ * @return
+ */
 std::vector<RegionID> Datastructures::all_regions()
 {
     // Replace the line below with your implementation
@@ -259,6 +343,11 @@ std::vector<RegionID> Datastructures::all_regions()
     return regionids;
 }
 
+/**
+ * @brief Datastructures::get_region_name
+ * @param id
+ * @return
+ */
 Name Datastructures::get_region_name(RegionID id)
 {
     // Replace the line below with your implementation
@@ -269,6 +358,11 @@ Name Datastructures::get_region_name(RegionID id)
     return it->second.name;
 }
 
+/**
+ * @brief Datastructures::get_region_coords
+ * @param id
+ * @return
+ */
 std::vector<Coord> Datastructures::get_region_coords(RegionID id)
 {
     // Replace the line below with your implementation
@@ -279,6 +373,12 @@ std::vector<Coord> Datastructures::get_region_coords(RegionID id)
     return it->second.coords;
 }
 
+/**
+ * @brief Datastructures::add_subregion_to_region
+ * @param id
+ * @param parentid
+ * @return
+ */
 bool Datastructures::add_subregion_to_region(RegionID id, RegionID parentid)
 {
     // Replace the line below with your implementation
@@ -296,6 +396,12 @@ bool Datastructures::add_subregion_to_region(RegionID id, RegionID parentid)
 
 }
 
+/**
+ * @brief Datastructures::add_station_to_region
+ * @param id
+ * @param parentid
+ * @return
+ */
 bool Datastructures::add_station_to_region(StationID id, RegionID parentid)
 {
     // Replace the line below with your implementation
@@ -313,6 +419,11 @@ bool Datastructures::add_station_to_region(StationID id, RegionID parentid)
     return true;
 }
 
+/**
+ * @brief Datastructures::station_in_regions
+ * @param id
+ * @return
+ */
 std::vector<RegionID> Datastructures::station_in_regions(StationID id)
 {
     // Replace the line below with your implementation
@@ -340,6 +451,11 @@ std::vector<RegionID> Datastructures::station_in_regions(StationID id)
     return region_vector;
 }
 
+/**
+ * @brief Datastructures::all_subregions_of_region
+ * @param id
+ * @return
+ */
 std::vector<RegionID> Datastructures::all_subregions_of_region(RegionID id)
 {
     // Replace the line below with your implementation
@@ -354,6 +470,11 @@ std::vector<RegionID> Datastructures::all_subregions_of_region(RegionID id)
 
 }
 
+/**
+ * @brief Datastructures::stations_closest_to
+ * @param xy
+ * @return
+ */
 std::vector<StationID> Datastructures::stations_closest_to(Coord xy)
 {
     // Replace the line below with your implementation
@@ -382,6 +503,11 @@ std::vector<StationID> Datastructures::stations_closest_to(Coord xy)
     return organized;
 }
 
+/**
+ * @brief Datastructures::remove_station
+ * @param id
+ * @return
+ */
 bool Datastructures::remove_station(StationID id)
 {
     // Replace the line below with your implementation
@@ -401,6 +527,12 @@ bool Datastructures::remove_station(StationID id)
 
 }
 
+/**
+ * @brief Datastructures::common_parent_of_regions
+ * @param id1
+ * @param id2
+ * @return
+ */
 RegionID Datastructures::common_parent_of_regions(RegionID id1, RegionID id2)
 {
     // Replace the line below with your implementation
@@ -429,7 +561,11 @@ RegionID Datastructures::common_parent_of_regions(RegionID id1, RegionID id2)
 
 
 }
-
+/**
+ * @brief Datastructures::rec_subregions_of_region
+ * @param subregions
+ * @param current_region
+ */
 void Datastructures::rec_subregions_of_region(std::vector<RegionID> &subregions, region *current_region)
 {
     if (current_region == nullptr) {return;}
