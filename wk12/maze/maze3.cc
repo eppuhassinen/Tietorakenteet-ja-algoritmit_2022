@@ -18,8 +18,8 @@ using namespace std;
 void connectNodes(Node& node1, Node& node2) {
     std::cout << "connectNodes not implemented" << std::endl;
     // Student code here to connect the nodes together
-    if ((std::abs(node1.loc.first - node2.loc.first) == 1 && node1.loc.second - node2.loc.second == 0)
-     || (std::abs(node1.loc.second - node2.loc.second) == 1  && node1.loc.first - node2.loc.first == 0) )
+    if ((std::abs(node1.loc.first - node2.loc.first) == 1 && node1.loc.second == node2.loc.second)
+     || (std::abs(node1.loc.second - node2.loc.second) == 1  && node1.loc.first == node2.loc.first) )
 
     if (node1.loc.first < node2.loc.first)
     {

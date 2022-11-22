@@ -23,7 +23,7 @@ const int NOT_FOUND = -1;
 // STUDENT TODO: Add your own struct here to represent a node with a location and knowledge of its neighbours
 struct Node
 {
-    std::pair<int,int> loc = {0,0};
+    std::pair<int,int> loc = {};
 
     std::map<std::string, Node*> paths;
 };
