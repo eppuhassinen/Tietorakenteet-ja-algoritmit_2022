@@ -38,7 +38,5 @@ Node *getNeighbour(std::string direction, Node &currentNode);
 bool findShortestPath(Node &startNode, Node &endNode, std::vector<std::pair<int, int>>& path);
 
 
-void connect(Node& node1, Node& node2);
-
 #endif // TEST_HH
 
