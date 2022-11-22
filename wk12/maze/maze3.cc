@@ -18,4 +18,33 @@ using namespace std;
 void connectNodes(Node& node1, Node& node2) {
     std::cout << "connectNodes not implemented" << std::endl;
     // Student code here to connect the nodes together
+    if ( (node1.loc.first - node2.loc.first) == 1 ) {
+        if ( node1.loc.second - node2.loc.second == 0 ) {
+            connect(node1,node2,RIGHT,LEFT);
+        }
+    }
+    if ( std::abs(node1.loc.second - node2.loc.second) == 1 ) {
+        if ( node1.loc.first - node2.loc.first != 0 ) {
+            connect(node1,node2,ABOVE,BELOW);
+        }
+    }
+
+    if ( (node2.loc.first - node1.loc.first) == -1 ) {
+        if ( node1.loc.second - node2.loc.second == 0 ) {
+            connect(node1,node2,LEFT,RIGHT);
+        }
+    }
+    if ( std::abs(node2.loc.second - node1.loc.second) == -1 ) {
+        if ( node1.loc.first - node2.loc.first != 0 ) {
+            connect(node1,node2,BELOW,ABOVE);
+        }
+    }
+
+
+
+}
+void connect(Node& node1, Node& node2, string dir, string back_dir)
+{
+    node1.paths[dir] = &node2;
+    node2.paths[back_dir] = &node1;
 }
