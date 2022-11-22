@@ -25,10 +25,7 @@ struct Node
 {
     std::pair<int,int> loc = {0,0};
 
-    Node* above_ptr = nullptr;
-    Node* below_ptr = nullptr;
-    Node* left_ptr = nullptr;
-    Node* right_ptr = nullptr;
+    std::map<std::string, Node*> paths;
 };
 
 // STUDENT TODO: Implement these functions in maze1.cc, maze2.cc, maze3.cc, and maze4.cc

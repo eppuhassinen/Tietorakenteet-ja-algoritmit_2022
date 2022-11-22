@@ -23,6 +23,7 @@ Node* createNode  (std::pair<int, int> loc, std::map<std::string, Node*> paths) 
 
     Node new_node;
     new_node.loc = loc;
+    new_node.paths = paths;
 
     nodes[loc] = new_node;
 
