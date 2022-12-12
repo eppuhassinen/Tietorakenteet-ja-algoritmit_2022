@@ -19,6 +19,7 @@
 #include <set>
 #include <algorithm>
 #include <math.h>
+#include <queue>
 
 
 // Types for IDs
@@ -38,6 +39,11 @@ Time const NO_TIME = 9999;
 // Return value for cases where integer values were not found
 int const NO_VALUE = std::numeric_limits<int>::min();
 
+// Type for a distance (in metres)
+using Distance = int;
+
+// Return value for cases where Distance is unknown
+Distance const NO_DISTANCE = NO_VALUE;
 
 // Type for a coordinate (x, y)
 struct Coord
@@ -91,16 +97,22 @@ struct region
 
 };
 
+struct train
+{
+    TrainID id;
+    std::vector<std::pair<StationID, Time>> stationtimes;
+};
+
+struct current_station
+{
+    StationID id;
+    StationID from = NO_STATION;
+    Distance distance_from_start;
+};
 
 
 // Return value for cases where coordinates were not found
 Coord const NO_COORD = {NO_VALUE, NO_VALUE};
-
-// Type for a distance (in metres)
-using Distance = int;
-
-// Return value for cases where Distance is unknown
-Distance const NO_DISTANCE = NO_VALUE;
 
 // This exception class is there just so that the user interface can notify
 // about operations which are not (yet) implemented
@@ -297,7 +309,11 @@ private:
 
     std::map<RegionID, region> region_map_;
 
+    std::map<TrainID, train> train_map_;
+
     void rec_subregions_of_region(std::vector<RegionID> &subregions,region* current_region);
+
+    Distance distance_between(StationID station1, StationID station2);
 
 };
 

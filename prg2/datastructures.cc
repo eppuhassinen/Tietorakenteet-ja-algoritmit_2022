@@ -594,40 +594,175 @@ void Datastructures::rec_subregions_of_region(std::vector<RegionID> &subregions,
     }
 }
 
+Distance Datastructures::distance_between(StationID station1, StationID station2)
+{
+    Coord c1 = station_map_[station1].coord;
+    Coord c2 = station_map_[station2].coord;
+    Distance distance = sqrt(pow(c1.x - c2.x, 2) + pow(c1.y - c2.y, 2));
+
+    return distance;
+
+}
+
 // prg2
 
-bool Datastructures::add_train(TrainID /*trainid*/, std::vector<std::pair<StationID, Time> > /*stationtimes*/)
+bool Datastructures::add_train(TrainID trainid, std::vector<std::pair<StationID, Time> > stationtimes)
 {
-    // Replace the line below with your implementation
-    // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("add_train()");
+
+
+    if (train_map_.find(trainid) != train_map_.end())   { return false; }
+
+    for (auto &n : stationtimes)
+    {
+        if (station_map_.find(n.first) == station_map_.end()) { return false; }
+    }
+
+    for (auto &n : stationtimes)
+    {
+        add_departure(n.first, trainid, n.second);
+    }
+
+    train new_train;
+    new_train.id = trainid;
+    new_train.stationtimes = stationtimes;
+
+    train_map_[trainid] = new_train;
+    return true;
 }
 
-std::vector<StationID> Datastructures::next_stations_from(StationID /*id*/)
+std::vector<StationID> Datastructures::next_stations_from(StationID id)
 {
-    // Replace the line below with your implementation
-    // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("next_stations_from()");
+    if (station_map_.find(id) == station_map_.end()) {return {NO_STATION};}
+
+    std::vector<StationID> next_stations = {};
+
+    for (auto &n : station_map_[id].trains)
+    {
+        auto ptr = train_map_[n.first].stationtimes.begin();
+        auto end = train_map_[n.first].stationtimes.end();
+        while (ptr < end)
+        {
+            if(ptr->first == id)
+            {
+                if ((ptr + 1)!= end)
+                {
+                    next_stations.push_back((ptr + 1)->first);
+                    ptr = end - 1;
+                }
+            }
+            ptr++;
+        }
+    }
+    return next_stations;
 }
 
-std::vector<StationID> Datastructures::train_stations_from(StationID /*stationid*/, TrainID /*trainid*/)
+std::vector<StationID> Datastructures::train_stations_from(StationID stationid, TrainID trainid)
 {
-    // Replace the line below with your implementation
-    // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("train_stations_from()");
+    if (station_map_.find(stationid) == station_map_.end()) {return {NO_STATION};}
+    if (station_map_[stationid].trains.find(trainid) == station_map_[stationid].trains.end()) {return {NO_STATION};}
+
+    std::vector<StationID> next_stations = {};
+
+    auto ptr = train_map_[trainid].stationtimes.begin();
+    auto end = train_map_[trainid].stationtimes.end();
+
+    while (ptr < end)
+    {
+        if (ptr->first == stationid) { ptr++; break; }
+        ptr++;
+    }
+
+    while (ptr < end)
+    {
+        next_stations.push_back(ptr->first);
+        ptr++;
+    }
+
+    return next_stations;
+
 }
 
 void Datastructures::clear_trains()
 {
-    // Replace the line below with your implementation
-    throw NotImplemented("clear_trains()");
+    for (auto &p : train_map_)
+    {
+        for (auto &n : p.second.stationtimes)
+        {
+            remove_departure(n.first, p.first, n.second);
+        }
+    }
+
+    train_map_.clear();
 }
 
-std::vector<std::pair<StationID, Distance>> Datastructures::route_any(StationID /*fromid*/, StationID /*toid*/)
+std::vector<std::pair<StationID, Distance>> Datastructures::route_any(StationID fromid, StationID toid)
 {
-    // Replace the line below with your implementation
-    // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("route_any()");
+    if (station_map_.find(fromid) == station_map_.end() || station_map_.find(toid) == station_map_.end())
+    {
+        return {std::make_pair(NO_STATION,NO_DISTANCE)};
+    }
+
+
+
+    std::set<StationID> checked_stations;
+    std::map<StationID,current_station> checked_stations_info;
+
+    std::queue<std::pair<StationID, current_station>> que;
+
+    current_station start;
+    start.id = fromid;
+    start.distance_from_start = 0;
+    start.from = NO_STATION;
+    que.push(std::make_pair(fromid,start));
+
+    current_station current;
+    while (true)
+    {
+        if (que.empty()) {return {};}
+
+        current = que.front().second;
+        checked_stations_info.insert(que.front());
+
+
+
+
+        for (StationID &next : next_stations_from(current.id))
+        {
+            if (checked_stations.find(next) == checked_stations.end())
+            {
+                current_station next_station;
+                next_station.id = next;
+                next_station.from = current.id;
+                next_station.distance_from_start = current.distance_from_start + distance_between(current.id, next);
+
+                que.push(std::make_pair(next, next_station));
+
+
+                checked_stations.insert(next);
+            }
+        }
+        if (current.id == toid) {break;}
+        que.pop();
+
+    }
+
+
+    std::vector<std::pair<StationID, Distance>> route;
+    auto temp = current;
+    while (temp.from != NO_STATION)
+    {
+        route.push_back(std::make_pair(temp.id, temp.distance_from_start));
+        temp = checked_stations_info[temp.from];
+    }
+
+    route.push_back(std::make_pair(temp.id, temp.distance_from_start));
+
+    std::reverse(route.begin(),route.end());
+
+    return route;
+
+
+
 }
 
 std::vector<std::pair<StationID, Distance>> Datastructures::route_least_stations(StationID /*fromid*/, StationID /*toid*/)
