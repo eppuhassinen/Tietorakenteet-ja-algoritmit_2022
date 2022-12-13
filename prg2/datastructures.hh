@@ -264,24 +264,29 @@ public:
 
     //prg2 functions
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding and inserting to a map are O(log(n))
+    // so the overall efficiency is O(log(n))
     bool add_train(TrainID trainid, std::vector<std::pair<StationID, Time>> stationtimes);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: finding is O(log(n)) and
+    // insertion is O(n) so the overall efficiency is O(log(n) + n)
     std::vector<StationID> next_stations_from(StationID id);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(log(n))
+    // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is the same
     std::vector<StationID> train_stations_from(StationID stationid, TrainID trainid);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n)
+    // Short rationale for estimate: map.clear is linear and the function doesn't do
+    // anything else
     void clear_trains();
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log(n))
+    // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is O(n log(n))
     std::vector<std::pair<StationID, Distance>> route_any(StationID fromid, StationID toid);
 
     // Non-compulsory operations
