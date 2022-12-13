@@ -661,7 +661,7 @@ std::vector<StationID> Datastructures::train_stations_from(StationID stationid, 
     if (station_map_.find(stationid) == station_map_.end()) {return {NO_STATION};}
     if (station_map_[stationid].trains.find(trainid) == station_map_[stationid].trains.end()) {return {NO_STATION};}
     if (train_map_.find(trainid) == train_map_.end()) {return {NO_STATION};}
-    if ((train_map_[trainid].stationtimes.end() - 1)->first != stationid) {return {NO_STATION};}
+    if ((train_map_[trainid].stationtimes.end() - 1)->first == stationid) {return {NO_STATION};}
 
     std::vector<StationID> next_stations = {};
 
