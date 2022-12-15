@@ -110,6 +110,14 @@ struct current_station
     Distance distance_from_start;
 };
 
+struct compare
+{
+    bool operator()(std::pair<Distance, current_station> p1,std::pair<Distance, current_station> p2) {
+
+            return p1.first > p2.first;
+    }
+};
+
 
 // Return value for cases where coordinates were not found
 Coord const NO_COORD = {NO_VALUE, NO_VALUE};
