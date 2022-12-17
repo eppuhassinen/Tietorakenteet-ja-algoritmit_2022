@@ -1025,6 +1025,8 @@ std::vector<std::pair<StationID, Time>> Datastructures::route_earliest_arrival(S
             next_station.time_to_arrive = times.second;
             next_station.time_to_leave_from_prev = times.first;
 
+            if (times.first == NO_TIME || times.second == NO_TIME) {continue;}
+
             if (checked_stations.find(nextid) == checked_stations.end())
             {
                 checked_stations.insert(std::make_pair(nextid, next_station));
