@@ -635,10 +635,11 @@ std::pair<Time, Time> Datastructures::time_to_leave_arrive(StationID fromid, Sta
 
 
 // prg2
+
 /**
- * @brief Datastructures::common_parent_of_regions ja tukattomat tivaa meiltä sotamuistoja
- * @param id1 meiltä sotamuistoja mä vain tuumaan
- * @param id2 yksin tuumaan kuka humpan seisauttaa?
+ * @brief Datastructures::add_train ja tukattomat tivaa meiltä sotamuistoja
+ * @param trainid meiltä sotamuistoja mä vain tuumaan
+ * @param stationtimes yksin tuumaan kuka humpan seisauttaa?
  * @return Alakerran vihtahousu raapii partaansa
  */
 bool Datastructures::add_train(TrainID trainid, std::vector<std::pair<StationID, Time> > stationtimes)
@@ -665,8 +666,8 @@ bool Datastructures::add_train(TrainID trainid, std::vector<std::pair<StationID,
     return true;
 }
 /**
- * @brief Datastructures::stations_closest_to sen villit rytmit raikui jo nuijasodassa
- * @param xy sitä oli paljon ja se oli mahtavaa
+ * @brief Datastructures::next_stations_from sen villit rytmit raikui jo nuijasodassa
+ * @param id sitä oli paljon ja se oli mahtavaa
  * @return mä vain tuumaan yksin tuumaan
  */
 std::vector<StationID> Datastructures::next_stations_from(StationID id)
@@ -695,8 +696,9 @@ std::vector<StationID> Datastructures::next_stations_from(StationID id)
     return next_stations;
 }
 /**
- * @brief Datastructures::all_subregions_of_region Hautaan asti humppaan
- * @param id Päälaulanta petteri terävä
+ * @brief Datastructures::train_stations_from Hautaan asti humppaan
+ * @param stationid Päälaulanta petteri terävä
+ * @param trainid Päälaulanta petteri terävä
  * @return Niin kauan kun ma muistan on ollut humppaa
  */
 std::vector<StationID> Datastructures::train_stations_from(StationID stationid, TrainID trainid)
@@ -726,11 +728,9 @@ std::vector<StationID> Datastructures::train_stations_from(StationID stationid, 
     return next_stations;
 
 }
+
 /**
- * @brief Datastructures::add_station_to_region Hautaan asti humppaan
- * @param id Söin kengistä pohjat kun arkkusi näin
- * @param parentid Mä tempasin pohjat ja tansseihin jäin
- * @return On humppaava suntio vain
+ * @brief Datastructures::clear_trains clears all trains and removes them from station departures
  */
 void Datastructures::clear_trains()
 {
@@ -745,9 +745,9 @@ void Datastructures::clear_trains()
     train_map_.clear();
 }
 /**
- * @brief Datastructures::add_subregion_to_region Mä nostatin vihat ja tansseihin jäin
- * @param id Oon tanssaava kersantti vain
- * @param parentid Kai humpata saan, humpata saan
+ * @brief Datastructures::route_any Mä nostatin vihat ja tansseihin jäin
+ * @param fromid Oon tanssaava kersantti vain
+ * @param toid Kai humpata saan, humpata saan
  * @return Ei kylmyytes estää voi humppaustain
  */
 std::vector<std::pair<StationID, Distance>> Datastructures::route_any(StationID fromid, StationID toid)
