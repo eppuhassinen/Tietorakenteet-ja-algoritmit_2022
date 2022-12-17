@@ -110,9 +110,25 @@ struct current_station
     Distance distance_from_start;
 };
 
-struct compare
+struct current_time_station
+{
+    StationID id;
+    StationID from = NO_STATION;
+    Time time_to_leave_from_prev;
+    Time time_to_arrive;
+};
+
+struct compare_distance
 {
     bool operator()(std::pair<Distance, current_station> p1,std::pair<Distance, current_station> p2) {
+
+            return p1.first > p2.first;
+    }
+};
+
+struct compare_time
+{
+    bool operator()(std::pair<Time, current_time_station> p1,std::pair<Time, current_time_station> p2) {
 
             return p1.first > p2.first;
     }
@@ -299,20 +315,24 @@ public:
 
     // Non-compulsory operations
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: O(n log (n))
+    // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is O(n log(n))
     std::vector<std::pair<StationID, Distance>> route_least_stations(StationID fromid, StationID toid);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: (O(n log(n))
+    // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is O(n log(n))
     std::vector<StationID> route_with_cycle(StationID fromid);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: (O(n log(n))
+    // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is O(n log(n))
     std::vector<std::pair<StationID, Distance>> route_shortest_distance(StationID fromid, StationID toid);
 
-    // Estimate of performance:
-    // Short rationale for estimate:
+    // Estimate of performance: (O(n log(n))
+    // Short rationale for estimate: finding in a map is O(log(n))
+    // so the overall efficiency is O(n log(n))
     std::vector<std::pair<StationID, Time>> route_earliest_arrival(StationID fromid, StationID toid, Time starttime);
 
 private:
@@ -327,6 +347,8 @@ private:
     void rec_subregions_of_region(std::vector<RegionID> &subregions,region* current_region);
 
     Distance distance_between(StationID station1, StationID station2);
+
+    std::pair<Time, Time> time_to_leave_arrive(StationID fromid, StationID toid, Time time);
 
 };
 

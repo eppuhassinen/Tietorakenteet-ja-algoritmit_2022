@@ -604,6 +604,36 @@ Distance Datastructures::distance_between(StationID station1, StationID station2
 
 }
 
+std::pair<Time, Time> Datastructures::time_to_leave_arrive(StationID fromid, StationID toid, Time time)
+{
+    auto leaving_trains = station_departures_after(fromid, time);
+    Time leaving_time = time;
+    Time arriving_time = NO_TIME;
+    StationID prev_stat = NO_STATION;
+    std::pair<Time,Time> times = std::make_pair(NO_TIME, NO_TIME);
+    for (auto &tr : leaving_trains)
+    {
+        leaving_time = tr.first;
+        prev_stat = NO_STATION;
+        for (auto &st : train_map_[tr.second].stationtimes)
+        {
+
+            if (st.second > leaving_time && st.first == toid && arriving_time > st.second && prev_stat == fromid)
+            {
+                arriving_time = st.second;
+                times = std::make_pair(leaving_time, arriving_time);
+
+            }
+            leaving_time = st.second;
+            prev_stat = st.first;
+        }
+    }
+
+    return times;
+}
+
+
+
 // prg2
 /**
  * @brief Datastructures::common_parent_of_regions ja tukattomat tivaa meiltä sotamuistoja
@@ -790,11 +820,22 @@ std::vector<std::pair<StationID, Distance>> Datastructures::route_any(StationID 
 
 }
 
+/**
+ * @brief Datastructures::route_least_stations calculates the route with least stations
+ * @param fromid StationID to start from
+ * @param toid StationID to end up to
+ * @return vector with StationIDs in order as the route and the distance to each stations
+ */
 std::vector<std::pair<StationID, Distance>> Datastructures::route_least_stations(StationID fromid, StationID toid)
 {
     return route_any(fromid, toid);
 }
 
+/**
+ * @brief Datastructures::route_with_cycle returns a path where is a cycle
+ * @param fromid StationID to start from
+ * @return vector with StationIDs as a route where last StationID is the end of a cycle
+ */
 std::vector<StationID> Datastructures::route_with_cycle(StationID fromid)
 {
     if (station_map_.find(fromid) == station_map_.end())
@@ -860,6 +901,12 @@ std::vector<StationID> Datastructures::route_with_cycle(StationID fromid)
     return route;
 }
 
+/**
+ * @brief Datastructures::route_shortest_distance calculates the route with shortest distance
+ * @param fromid StationID to start from
+ * @param toid StationID to end up to
+ * @return vector with StationIDs in order as the route
+ */
 std::vector<std::pair<StationID, Distance>> Datastructures::route_shortest_distance(StationID fromid, StationID toid)
 {
     if (station_map_.find(fromid) == station_map_.end() || station_map_.find(toid) == station_map_.end())
@@ -873,7 +920,7 @@ std::vector<std::pair<StationID, Distance>> Datastructures::route_shortest_dista
     std::map<StationID,current_station> checked_stations_info;
 
     std::priority_queue<std::pair<Distance, current_station>,
-            std::vector<std::pair<Distance, current_station>>,compare> que;
+            std::vector<std::pair<Distance, current_station>>,compare_distance> que;
 
     current_station start;
     start.id = fromid;
@@ -884,10 +931,10 @@ std::vector<std::pair<StationID, Distance>> Datastructures::route_shortest_dista
 
 
     current_station current;
-    while (!que.empty())
+    while (true)
     {
 
-
+        if (que.empty()) {return {};}
         current = que.top().second;
         checked_stations_info.insert(std::make_pair(current.id, current));
 
@@ -933,10 +980,97 @@ std::vector<std::pair<StationID, Distance>> Datastructures::route_shortest_dista
 
 
 }
-
-std::vector<std::pair<StationID, Time>> Datastructures::route_earliest_arrival(StationID /*fromid*/, StationID /*toid*/, Time /*starttime*/)
+/**
+ * @brief Datastructures::route_earliest_arrival Calculates the route with earliest arrival time
+ * @param fromid StationID to start from
+ * @param toid StationID to end up to
+ * @param starttime Time, starting time
+ * @return vector with departure times and StationIDs, last element is station and arriving time
+ */
+std::vector<std::pair<StationID, Time>> Datastructures::route_earliest_arrival(StationID fromid, StationID toid, Time starttime)
 {
-    // Replace the line below with your implementation
-    // Also uncomment parameters ( /* param */ -> param )
-    throw NotImplemented("route_earliest_arrival()");
+    if (station_map_.find(fromid) == station_map_.end() || station_map_.find(toid) == station_map_.end())
+    {
+        return {std::make_pair(NO_STATION,NO_TIME)};
+    }
+
+    current_time_station current;
+    current.from = NO_STATION;
+    current.id = fromid;
+    current.time_to_arrive = starttime;
+    current.time_to_leave_from_prev = NO_TIME;
+
+
+    std::map<StationID, current_time_station> checked_stations;
+
+    checked_stations.insert(std::make_pair(fromid, current));
+
+    std::priority_queue<std::pair<Time, current_time_station>,
+            std::vector<std::pair<Time, current_time_station>>,compare_time> q;
+
+    q.push(std::make_pair(starttime, current));
+
+    while (!q.empty())
+    {
+        current = q.top().second;
+        q.pop();
+
+        for (auto &nextid : next_stations_from(current.id))
+        {
+            auto times = time_to_leave_arrive(current.id, nextid, current.time_to_arrive);
+
+            current_time_station next_station;
+            next_station.from = current.id;
+            next_station.id = nextid;
+            next_station.time_to_arrive = times.second;
+            next_station.time_to_leave_from_prev = times.first;
+
+            if (checked_stations.find(nextid) == checked_stations.end())
+            {
+                checked_stations.insert(std::make_pair(nextid, next_station));
+                q.push(std::make_pair(next_station.time_to_arrive, next_station));
+            }
+            else if (checked_stations[nextid].time_to_arrive > next_station.time_to_arrive)
+            {
+                checked_stations[nextid] = next_station;
+
+                auto qtemp = q;
+                std::priority_queue<std::pair<Time, current_time_station>,
+                        std::vector<std::pair<Time, current_time_station>>,compare_time> empty;
+                std::swap(q, empty);
+                while (!qtemp.empty())
+                {
+                    if (qtemp.top().second.id != nextid) {q.push(qtemp.top());}
+
+                    qtemp.pop();
+                }
+                q.push(std::make_pair(next_station.time_to_arrive, next_station));
+            }
+
+        }
+    }
+
+    if (checked_stations.find(toid) == checked_stations.end()) {return {};}
+
+    std::vector<std::pair<StationID, Time>> route;
+    auto temp = checked_stations[toid];
+    auto temp_from = checked_stations[temp.from];
+
+    route.push_back(std::make_pair(toid, temp.time_to_arrive));
+
+    while (temp_from.from != NO_STATION)
+    {
+        route.push_back(std::make_pair(temp_from.id, temp.time_to_leave_from_prev));
+        temp = temp_from;
+        temp_from = checked_stations[temp_from.from];
+    }
+
+    route.push_back(std::make_pair(temp_from.id, temp.time_to_leave_from_prev));
+
+    std::reverse(route.begin(), route.end());
+
+    return route;
+
+
+
 }
